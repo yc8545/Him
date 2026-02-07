@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kiss Day 💋</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+/* PAGE */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff5f7, #ffe3ec);
+  font-family: 'Playfair Display', serif;
+  color: #5a1f33;
+  text-align: center;
+  padding: 40px 20px;
+  overflow: hidden;
+}
+
+/* TITLE */
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.6rem;
+  color: #c2185b;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-bottom: 40px;
+}
+
+/* SCENE */
+.scene {
+  position: relative;
+  width: 320px;
+  height: 220px;
+  margin: 0 auto 40px;
+  cursor: pointer;
+}
+
+/* FIGURES */
+.face {
+  position: absolute;
+  bottom: 0;
+  width: 90px;
+  height: 140px;
+  background: linear-gradient(#555, #333);
+  border-radius: 45px 45px 35px 35px;
+  transition: transform 1.2s ease;
+}
+
+/* HEAD */
+.face::before {
+  content: "";
+  position: absolute;
+  top: -42px;
+  left: 25px;
+  width: 40px;
+  height: 40px;
+  background: #444;
+  border-radius: 50%;
+}
+
+/* LEFT & RIGHT */
+.left {
+  left: 30px;
+}
+
+.right {
+  right: 30px;
+}
+
+/* KISS STATE */
+.scene.kiss .left {
+  transform: translateX(60px);
+}
+
+.scene.kiss .right {
+  transform: translateX(-60px);
+}
+
+/* HEARTBEAT */
+.heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 26px;
+  color: #c2185b;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.scene.kiss .heart {
+  animation: beat 1.6s ease infinite;
+}
+
+@keyframes beat {
+  0% { transform: translate(-50%, -50%) scale(0.95); }
+  50% { transform: translate(-50%, -50%) scale(1.35); }
+  100% { transform: translate(-50%, -50%) scale(0.95); }
+}
+
+/* BLUSH OVERLAY */
+.blush {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(194,24,91,0.25), transparent 70%);
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.scene.kiss .blush {
+  opacity: 1;
+}
+
+/* NOTE */
+.note {
+  max-width: 560px;
+  height: 220px;
+  margin: 30px auto 0;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  white-space: pre-wrap;
+
+  background: rgba(255, 255, 255, 0.75);
+  padding: 22px 24px;
+  border-radius: 14px;
+
+  overflow-y: auto;
+  opacity: 0;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.note.show {
+  opacity: 1;
+}
+
+/* FADE EDGE */
+.note::after {
+  content: "";
+  position: sticky;
+  bottom: 0;
+  display: block;
+  height: 30px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0.9)
+  );
+}
+
+/* CURSOR */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: #c2185b;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Kiss Day 💋</h1>
+<div class="subtitle">Click to lean in</div>
+
+<div class="scene" id="scene">
+  <div class="blush"></div>
+
+  <div class="face left"></div>
+  <div class="face right"></div>
+
+  <div class="heart">❤</div>
+</div>
+
+<div class="note" id="note"></div>
+
+<script>
+const scene = document.getElementById("scene");
+const note = document.getElementById("note");
+
+const message =
+`The first time I kissed you,
+my world almost stopped.
+
+The wind went quiet,
+time forgot how to move.
+All I could hear was my heartbeat
+loud, reckless, real.
+
+Goosebumps everywhere,
+butterflies crashing into each other,
+and that strange ache in my chest
+that hurt and felt beautiful at the same time.
+
+I couldn’t breathe while it lasted
+and when you stopped kissing me,
+I realised something I never had before:
+
+for the first time,
+I liked the shortness of breath.
+
+And ever since then,
+I hate it
+absolutely hate it
+when I see your lips anywhere
+other than on mine.
+
+If you lean in,
+I’ll be right here 
+slow, gentle,
+and completely yours. 💋🤍`;
+
+let kissed = false;
+
+scene.addEventListener("click", () => {
+  if (kissed) return;
+  kissed = true;
+
+  scene.classList.add("kiss");
+
+  setTimeout(() => {
+    typeWriter(note, message);
+  }, 900);
+});
+
+/* TYPEWRITER */
+function typeWriter(el, text) {
+  el.classList.add("show");
+  let i = 0;
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  el.appendChild(cursor);
+
+  const interval = setInterval(() => {
+    cursor.insertAdjacentText("beforebegin", text.charAt(i));
+    i++;
+    if (i >= text.length) {
+      clearInterval(interval);
+      cursor.remove();
+    }
+  }, 45);
+}
+</script>
+
+</body>
+</html>

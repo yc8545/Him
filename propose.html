@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Propose Day 💍</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+/* PAGE */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff5f7, #ffe3ec);
+  font-family: 'Playfair Display', serif;
+  color: #5a1f33;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* TITLE */
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.8rem;
+  color: #c2185b;
+  margin-bottom: 20px;
+}
+
+/* SCENE */
+.scene {
+  position: relative;
+  height: 260px;
+  margin-bottom: 40px;
+}
+
+/* BOY & GIRL */
+
+.person {
+  position: absolute;
+  bottom: 0;
+  width: 60px;
+  height: 120px;
+  background: #333;
+  border-radius: 30px 30px 20px 20px;
+}
+
+.boy {
+  left: 40%;
+  animation: kneel 3s ease-in-out infinite;
+}
+
+.girl {
+  left: 55%;
+  height: 140px;
+  background: #555;
+}
+
+/* HEAD */
+.person::before {
+  content: "";
+  position: absolute;
+  top: -35px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  background: #444;
+  border-radius: 50%;
+}
+
+/* RING */
+.ring {
+  position: absolute;
+  top: 50px;
+  left: 65px;
+  font-size: 20px;
+  color: gold;
+  animation: sparkle 1.5s infinite;
+}
+
+/* BOY KNEEL */
+@keyframes kneel {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+@keyframes sparkle {
+  0% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0.4; transform: scale(0.9); }
+}
+
+/* LETTER */
+.letter {
+  width: 260px;
+  height: 160px;
+  margin: 0 auto;
+  position: relative;
+  cursor: pointer;
+  perspective: 800px;
+  transition: width 1s ease, height 1s ease;
+}
+
+/* EXPANDED LETTER */
+.letter.open {
+  width: 520px;
+  height: 420px;
+}
+
+
+.envelope {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  border: 2px solid #c2185b;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+
+.flap {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 50%;
+  background: #c2185b;
+  transform-origin: top;
+  transition: transform 1s ease;
+}
+
+.letter.open .flap {
+  transform: rotateX(-140deg);
+}
+
+/* NOTE */
+.note {
+  position: absolute;
+  inset: 18px;
+  background: #fffafc;
+  padding: 20px 24px;
+  font-size: 1rem;
+  line-height: 1.7;
+  opacity: 0;
+  white-space: pre-wrap;
+  text-align: left;
+  overflow-y: auto;
+  border-radius: 8px;
+}
+
+/* SHOW NOTE */
+
+.letter.open {
+  animation: openLetter 1.2s ease;
+}
+
+@keyframes openLetter {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.letter.open .note {
+  opacity: 1;
+}
+
+
+/* TYPEWRITER CURSOR */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: #c2185b;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* HEART PARTICLES */
+.heart {
+  position: fixed;
+  font-size: 18px;
+  color: rgba(194, 24, 91, 0.7);
+  animation: heartFloat 2.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes heartFloat {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: gold;
+  border-radius: 50%;
+  animation: sparkleFly 1.5s ease-out forwards;
+}
+
+@keyframes sparkleFly {
+  to {
+    transform: translate(
+      calc(-30px + 60px * var(--x)),
+      calc(-30px + 60px * var(--y))
+    );
+    opacity: 0;
+  }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<h1>Happy Propose Day 💍</h1>
+
+<!-- PROPOSAL SCENE -->
+<div class="scene">
+  <div class="person boy">
+    <div class="ring">💍</div>
+  </div>
+  <div class="person girl"></div>
+</div>
+
+<!-- LETTER -->
+<div class="letter" id="letter">
+  <div class="envelope">
+    <div class="flap"></div>
+    <div class="note" id="note"></div>
+  </div>
+</div>
+
+<script>
+const letter = document.getElementById("letter");
+const note = document.getElementById("note");
+
+const proposalText =
+`I don’t want to ask you in a perfect moment,
+because I’m not perfect all the time.
+
+I want to ask you knowing that sometimes I’m insecure,
+sometimes I overthink,
+sometimes I’m quiet for no reason
+and sometimes I feel too much, too deeply.
+
+I want to ask you knowing that I can be sad one day,
+annoyingly happy the next,
+strong on some days and needing you on others.
+
+So this isn’t just “will you be with me when things are easy?”
+This is me asking
+
+Will you choose me
+when I doubt myself?
+when I’m scared?
+when I’m not at my best,
+but still trying?
+
+And in return, I promise to choose you too.
+On calm days. On messy days.
+On days we laugh endlessly
+and on days we just sit in silence.
+
+So here I am, exactly as I am
+not perfect, but real.
+
+Will you choose me? 🤍
+Will you choose me,
+not just today,
+but for all the days that come after? 💍`;
+
+let opened = false;
+
+letter.addEventListener("click", () => {
+  if (opened) return;
+  opened = true;
+
+  letter.classList.add("open");
+
+const rect = letter.getBoundingClientRect();
+heartBurst(rect.left + rect.width / 2, rect.top);
+
+  setTimeout(() => typeWriter(note, proposalText), 800);
+});
+
+/* TYPEWRITER */
+function typeWriter(el, text) {
+  let i = 0;
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  el.appendChild(cursor);
+
+  const interval = setInterval(() => {
+    cursor.insertAdjacentText("beforebegin", text.charAt(i));
+    i++;
+    if (i >= text.length) {
+      clearInterval(interval);
+      cursor.remove();
+    }
+  }, 45);
+}
+
+function heartBurst(x, y) {
+  for (let i = 0; i < 12; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "❤";
+    heart.style.left = x + Math.random() * 60 - 30 + "px";
+    heart.style.top = y + Math.random() * 20 - 10 + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 2500);
+  }
+}
+
+function ringSparkle() {
+  const ring = document.querySelector(".ring");
+  const rect = ring.getBoundingClientRect();
+
+  for (let i = 0; i < 8; i++) {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.style.left = rect.left + rect.width / 2 + "px";
+    s.style.top = rect.top + rect.height / 2 + "px";
+    s.style.setProperty("--x", Math.random());
+    s.style.setProperty("--y", Math.random());
+    document.body.appendChild(s);
+
+    setTimeout(() => s.remove(), 1500);
+  }
+}
+setInterval(ringSparkle, 2500);
+
+</script>
+
+</body>
+</html>

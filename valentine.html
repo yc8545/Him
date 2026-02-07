@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Our Story ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&family=Homemade+Apple&display=swap" rel="stylesheet">
+
+<style>
+
+/* CANDLE LIGHT */
+.candle-glow {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center,
+    rgba(255,170,120,0.18),
+    rgba(0,0,0,0.85)
+  );
+  pointer-events: none;
+  animation: flicker 6s infinite ease-in-out;
+  z-index: 0;
+}
+
+.candle-glow.bright {
+  animation: none;
+  opacity: 0.95;
+  filter: blur(3px);
+  transition: opacity 0.6s ease, filter 0.6s ease;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.7; filter: blur(1px); }
+  30% { opacity: 0.85; filter: blur(2px); }
+  60% { opacity: 0.75; filter: blur(1.5px); }
+  100% { opacity: 0.8; filter: blur(2px); }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #1b0b12, #000);
+  font-family: 'Playfair Display', serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  padding-top: 10px;
+}
+
+/* BOOK WRAPPER */
+.book-wrapper {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.prompt {
+  margin-bottom: 20px;
+  opacity: 0.85;
+}
+
+/* BOOK */
+.book {
+  transform-style: preserve-3d;
+  width: 320px;
+  height: 420px;
+  position: relative;
+  perspective: 1600px;
+  cursor: pointer;
+}
+
+/* COVER */
+.cover {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #8b1e3f, #4a0f22);
+  border-radius: 12px;
+  transform-origin: left;
+  transition: transform 1.5s ease;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.5rem;
+}
+
+.book.open .cover {
+  transform: rotateY(-160deg);
+}
+
+/* PAGES */
+.page {
+    transform-style: preserve-3d;
+  
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  color: #000;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform-origin: left;
+  transition: transform 1.4s ease;
+}
+
+.page.flipped {
+   
+  transform: rotateY(-180deg);
+}
+
+.page img,
+.page video {
+  max-width: 100%;
+  max-height: 260px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.caption {
+  font-family: 'Homemade Apple', cursive;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* CONTROLS */
+.controls {
+  margin-top: 25px;
+  display: none;
+}
+
+.book.open + .controls {
+  display: block;
+}
+
+.controls button {
+  background: #c2185b;
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  margin: 0 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* FINAL NOTE */
+.final-note {
+  max-width: 640px;
+  margin: 50px auto 0;
+  padding: 26px 28px;
+  background: rgba(255,255,255,0.78);
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.final-note.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: breathe 6s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+  100% { transform: scale(1); }
+}
+
+.final-text {
+  font-family: 'Homemade Apple', cursive;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: #5a1f33;
+  white-space: pre-wrap;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="candle-glow"></div>
+
+<div class="book-wrapper">
+
+  <div class="prompt">Click to open our story</div>
+
+  <div class="book" id="book">
+    <div class="cover">Our Story ❤️</div>
+
+    <div class="page"><video src="images/img1 (1).mp4" controls></video><div class="caption">i love you </div></div>
+    
+    <div class="page"><img src="images/img1 (1).jpeg"><div class="caption">and always love you .</div></div>
+    <div class="page"><img src="images/img1 (2).jpeg"><div class="caption">and the good part is .</div></div>
+    <div class="page"><img src="images/img1 (3).jpeg"><div class="caption">i will always love you</div></div>
+
+    <div class="page"><img src="images/img1 (4).jpeg"><div class="caption">moreee.</div></div><div class="page"><img src="images/img1 (5).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (6).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (7).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (8).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (9).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (10).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (11).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (12).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (13).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (14).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (15).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (16).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (17).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (18).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (19).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (20).jpeg"><div class="caption">Still choosing you.</div></div>
+    <div class="page"><img src="images/img1 (21).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (22).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (23).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (24).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (25).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (26).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (27).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (28).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (29).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (30).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (31).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (32).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (33).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (34).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (35).jpeg"><div class="caption">Still choosing you.</div></div><div class="page"><img src="images/img1 (3).jpeg"><div class="caption">Still choosing you.</div></div>
+    <div class="page"><video src="images/img1 (2).mp4" controls></video><div class="caption">and i will keep choosing you !!</div></div>
+    
+  </div>
+
+  <div class="controls">
+    <button onclick="prevPage()">Previous</button>
+    <button onclick="nextPage()">Next</button>
+  </div>
+
+  <div class="final-note" id="finalNote">
+    <div class="final-text" id="finalText"></div>
+  </div>
+
+</div>
+
+<script>
+const book = document.getElementById("book");
+const pages = document.querySelectorAll(".page");
+const finalNote = document.getElementById("finalNote");
+const finalText = document.getElementById("finalText");
+const candle = document.querySelector(".candle-glow");
+
+let currentPage = 0;
+let opened = false;
+
+const finalMessage = `This book isn’t a gift.
+It’s a reminder.
+
+That everything here was written with intention.
+
+I choose you.
+Still.
+Every day.
+
+Happy Valentine’s Day. ❤️`;
+
+function glowPulse() {
+  candle.classList.add("bright");
+  setTimeout(() => candle.classList.remove("bright"), 700);
+}
+
+book.addEventListener("click", () => {
+  if (!opened) {
+    book.classList.add("open");
+    opened = true;
+    glowPulse();
+  }
+});
+
+function updatePages() {
+  const total = pages.length;
+
+  pages.forEach((page, index) => {
+    if (index < currentPage) {
+      page.classList.add("flipped");
+      page.style.zIndex = index; // flipped pages go down
+    } else {
+      page.classList.remove("flipped");
+      page.style.zIndex = total - index; // unflipped pages stack on top
+    }
+  });
+}
+
+
+function nextPage() {
+  if (currentPage < pages.length) {
+    currentPage++;
+    updatePages();
+    glowPulse();
+
+    if (currentPage === pages.length) {
+      setTimeout(() => {
+        finalNote.classList.add("show");
+        finalText.textContent = finalMessage;
+      }, 1000);
+    }
+  }
+}
+
+function prevPage() {
+  if (currentPage > 0) {
+    currentPage--;
+    updatePages();
+    glowPulse();
+  }
+}
+</script>
+
+</body>
+</html>

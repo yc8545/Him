@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hug Day 🤗</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+/* PAGE */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff5f7, #ffe3ec);
+  font-family: 'Playfair Display', serif;
+  color: #5a1f33;
+  text-align: center;
+  padding: 40px 20px;
+  overflow: hidden;
+}
+
+/* TITLE */
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.6rem;
+  color: #c2185b;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-bottom: 40px;
+}
+
+/* SCENE */
+.scene {
+  position: relative;
+  width: 320px;
+  height: 220px;
+  margin: 0 auto 40px;
+  cursor: pointer;
+}
+
+/* FIGURES */
+.figure {
+  position: absolute;
+  bottom: 0;
+  width: 70px;
+  height: 140px;
+  background: linear-gradient(#555, #333);
+  border-radius: 35px 35px 20px 20px;
+  transition: transform 1.2s ease;
+}
+
+/* HEAD */
+.figure::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 15px;
+  width: 40px;
+  height: 40px;
+  background: #444;
+  border-radius: 50%;
+}
+
+/* LEFT & RIGHT */
+.left {
+  left: 40px;
+}
+
+.right {
+  right: 40px;
+}
+
+/* ARMS */
+.arm {
+  position: absolute;
+  top: 50px;
+  width: 60px;
+  height: 18px;
+  background: #444;
+  border-radius: 20px;
+  transition: transform 1.2s ease;
+}
+
+.left .arm {
+  right: -40px;
+}
+
+.right .arm {
+  left: -40px;
+}
+
+/* HUG STATE */
+.scene.hug .left {
+  transform: translateX(70px);
+}
+
+.scene.hug .right {
+  transform: translateX(-70px);
+}
+
+.scene.hug .left .arm {
+  transform: rotate(25deg) translateX(15px);
+}
+
+.scene.hug .right .arm {
+  transform: rotate(-25deg) translateX(-15px);
+}
+
+/* WARM GLOW */
+.glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(194,24,91,0.25), transparent 70%);
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.scene.hug .glow {
+  opacity: 1;
+}
+
+/* HEARTBEAT */
+.heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 28px;
+  color: #c2185b;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.scene.hug .heart {
+  animation: beat 1.4s ease infinite;
+}
+
+@keyframes beat {
+  0% { transform: translate(-50%, -50%) scale(0.9); }
+  50% { transform: translate(-50%, -50%) scale(1.3); }
+  100% { transform: translate(-50%, -50%) scale(0.9); }
+}
+
+/* NOTE */
+.note {
+  max-width: 560px;
+  height: 240px;
+  margin: 30px auto 0;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  white-space: pre-wrap;
+
+  background: rgba(255, 255, 255, 0.75);
+  padding: 22px 24px;
+  border-radius: 14px;
+
+  overflow-y: auto;
+  opacity: 0;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+.note::after {
+  content: "";
+  position: sticky;
+  bottom: 0;
+  display: block;
+  height: 30px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0.9)
+  );
+}
+.note::-webkit-scrollbar {
+  width: 6px;
+}
+
+.note::-webkit-scrollbar-thumb {
+  background: rgba(194, 24, 91, 0.4);
+  border-radius: 10px;
+}
+
+
+.note.show {
+  opacity: 1;
+}
+
+/* CURSOR */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: #c2185b;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Hug Day 🤗</h1>
+<div class="subtitle">Click to hug</div>
+
+<div class="scene" id="scene">
+  <div class="glow"></div>
+
+  <div class="figure left">
+    <div class="arm"></div>
+  </div>
+
+  <div class="figure right">
+    <div class="arm"></div>
+  </div>
+
+  <div class="heart">❤</div>
+</div>
+
+<div class="note" id="note"></div>
+
+<script>
+const scene = document.getElementById("scene");
+const note = document.getElementById("note");
+
+const message =
+`You once told me
+that when two people hold each other long enough,
+their heartbeats forget their own rhythm
+and learn to beat as one.
+
+But how do I tell you
+that this still feels too little for me.
+
+Skin touching is a boundary I don’t want,
+I want to dissolve into you,
+to blur where I end and where you begin,
+to let our atoms collide
+until even distance forgets us.
+
+And since that can’t truly happen,
+I settle for the next closest miracle
+resting my head against you,
+listening to our heartbeats sync,
+and calling that home.
+
+`;
+
+let hugged = false;
+
+scene.addEventListener("click", () => {
+  if (hugged) return;
+  hugged = true;
+
+  scene.classList.add("hug");
+
+  setTimeout(() => {
+    typeWriter(note, message);
+  }, 900);
+});
+
+/* TYPEWRITER */
+function typeWriter(el, text) {
+  el.classList.add("show");
+  let i = 0;
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  el.appendChild(cursor);
+
+  const interval = setInterval(() => {
+    cursor.insertAdjacentText("beforebegin", text.charAt(i));
+    i++;
+    if (i >= text.length) {
+      clearInterval(interval);
+      cursor.remove();
+    }
+  }, 45);
+}
+</script>
+
+</body>
+</html>

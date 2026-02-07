@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Rose Day 🌹</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+/* PAGE */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff5f7, #ffe3ec);
+  font-family: 'Playfair Display', serif;
+  color: #5a1f33;
+  text-align: center;
+  overflow-x: hidden;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.8rem;
+  color: #c2185b;
+  margin-bottom: 10px;
+}
+
+/* CONTAINER */
+.scene {
+  position: relative;
+  height: 520px;
+}
+
+/* WATERING CAN */
+.can {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg);
+  font-size: 42px;
+  transition: transform 1s ease;
+  z-index: 5;
+}
+
+.can.pour {
+  transform: translateX(-50%) rotate(-35deg);
+}
+
+/* WATER STREAM */
+.stream {
+  position: absolute;
+  top: 55px;
+  left: 50%;
+  width: 4px;
+  height: 0;
+  background: rgba(0, 123, 255, 0.5);
+  animation: pour 1.5s forwards;
+  z-index: 4;
+}
+
+@keyframes pour {
+  to {
+    height: 260px;
+    opacity: 0;
+  }
+}
+
+/* ROSE (YOUR CODE, SLIGHTLY POSITIONED) */
+.rose {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 140px auto 0;
+  transform: scale(0.9);
+}
+
+.petal {
+  position: absolute;
+  width: 120px;
+  height: 160px;
+  background: radial-gradient(circle at top, #ff5a5a, #8b0000);
+  border-radius: 60% 60% 70% 70%;
+  top: 20px;
+  left: 40px;
+  transform-origin: bottom center;
+  opacity: 0;
+  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.3));
+}
+
+.rose.bloom .petal {
+  animation: bloom 2.5s ease-out forwards;
+}
+
+.petal:nth-child(1) { transform: rotate(0deg) scale(0.2); animation-delay: 0s; }
+.petal:nth-child(2) { transform: rotate(40deg) scale(0.2); animation-delay: 0.3s; }
+.petal:nth-child(3) { transform: rotate(-40deg) scale(0.2); animation-delay: 0.3s; }
+.petal:nth-child(4) { transform: rotate(80deg) scale(0.2); animation-delay: 0.6s; }
+.petal:nth-child(5) { transform: rotate(-80deg) scale(0.2); animation-delay: 0.6s; }
+.petal:nth-child(6) { transform: rotate(120deg) scale(0.2); animation-delay: 0.9s; }
+.petal:nth-child(7) { transform: rotate(-120deg) scale(0.2); animation-delay: 0.9s; }
+
+@keyframes bloom {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--r)) scale(0.2);
+  }
+  60% { opacity: 1; }
+  100% {
+    opacity: 1;
+    transform: rotate(var(--r)) scale(1);
+  }
+}
+
+.center {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, #ffcccb, #b30000);
+  border-radius: 50%;
+  top: 80px;
+  left: 80px;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+  opacity: 0;
+}
+
+.rose.bloom .center {
+  animation: centerBloom 2s ease forwards;
+  animation-delay: 1.4s;
+}
+
+@keyframes centerBloom {
+  to {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.stem {
+  position: absolute;
+  width: 6px;
+  height: 0;
+  background: linear-gradient(#1f7a1f, #0b3d0b);
+  top: 180px;
+  left: 97px;
+  border-radius: 10px;
+}
+
+.rose.bloom .stem {
+  animation: growStem 2s ease forwards;
+}
+
+@keyframes growStem {
+  to { height: 180px; }
+}
+
+/* BUTTON */
+button {
+  margin-top: 30px;
+  background: #c2185b;
+  color: #fff;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* NOTE */
+.note {
+  max-width: 520px;
+  margin: 40px auto 0;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  opacity: 0;
+  white-space: pre-wrap;
+  border-left: 2px solid #c2185b;
+  padding-left: 20px;
+}
+.note.show { opacity: 1; }
+
+/* WIND SWAY (SUBTLE) */
+.rose.sway {
+  animation: wind 6s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes wind {
+  0% {
+    transform: scale(0.9) rotate(0deg);
+  }
+  25% {
+    transform: scale(0.9) rotate(1.2deg);
+  }
+  50% {
+    transform: scale(0.9) rotate(0deg);
+  }
+  75% {
+    transform: scale(0.9) rotate(-1.2deg);
+  }
+  100% {
+    transform: scale(0.9) rotate(0deg);
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Happy Rose Day 🌹</h1>
+
+<div class="scene">
+  <div class="can" id="can">🚿</div>
+
+  <div class="rose" id="rose">
+    <div class="petal" style="--r:0deg"></div>
+    <div class="petal" style="--r:40deg"></div>
+    <div class="petal" style="--r:-40deg"></div>
+    <div class="petal" style="--r:80deg"></div>
+    <div class="petal" style="--r:-80deg"></div>
+    <div class="petal" style="--r:120deg"></div>
+    <div class="petal" style="--r:-120deg"></div>
+    <div class="center"></div>
+    <div class="stem"></div>
+  </div>
+</div>
+
+<button id="waterBtn">Water the plant 💧</button>
+
+<div class="note" id="note"></div>
+
+<script>
+const btn = document.getElementById("waterBtn");
+const rose = document.getElementById("rose");
+const note = document.getElementById("note");
+const can = document.getElementById("can");
+
+const message =
+`They say Rose Day doesn’t come from one big love story.
+It comes from people who couldn’t always say what they felt,
+so they let a rose speak instead.
+
+In old times, when words were risky and feelings were hidden,
+a rose meant “I feel something real.”
+No promises. No pressure. Just honesty.
+
+So this rose isn’t about grand gestures or perfect lines.
+It’s about me choosing you, quietly but surely,
+and sayingwithout overthinking that you matter to me.
+
+Happy Rose Day 🤍
+This one’s for you… and for everything I feel, even when I don’t say it out loud. `;
+
+btn.addEventListener("click", () => {
+  can.classList.add("pour");
+
+  const stream = document.createElement("div");
+  stream.className = "stream";
+  document.querySelector(".scene").appendChild(stream);
+
+  setTimeout(() => {
+    rose.classList.add("bloom");
+    typeWriter(note, message);
+    btn.style.display = "none";
+  }, 1500);
+});
+
+/* TYPEWRITER */
+function typeWriter(el, text) {
+  el.classList.add("show");
+  let i = 0;
+  const speed = 45;
+  const interval = setInterval(() => {
+    el.textContent += text.charAt(i);
+    i++;
+    if (i >= text.length) clearInterval(interval);
+  }, speed);
+}
+</script>
+
+</body>
+</html>

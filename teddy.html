@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Teddy Day 🧸</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff5f7, #ffe3ec);
+  font-family: 'Playfair Display', serif;
+  color: #5a1f33;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.6rem;
+  color: #c2185b;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+/* TEDDY */
+.teddy {
+  position: relative;
+  width: 180px;
+  height: 220px;
+  margin: 0 auto 30px;
+  cursor: pointer;
+  transition: transform 0.6s ease;
+}
+
+.teddy.hug {
+  transform: scale(1.05);
+}
+
+/* HEAD */
+.head {
+  position: absolute;
+  top: 0;
+  left: 30px;
+  width: 120px;
+  height: 120px;
+  background: #d8a46f;
+  border-radius: 50%;
+}
+
+/* EARS */
+.ear {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: #c4915c;
+  border-radius: 50%;
+  top: -10px;
+}
+
+.ear.left { left: -10px; }
+.ear.right { right: -10px; }
+
+/* FACE */
+.eye {
+  position: absolute;
+  top: 45px;
+  width: 10px;
+  height: 10px;
+  background: #3a1f0f;
+  border-radius: 50%;
+}
+
+.eye.left { left: 35px; }
+.eye.right { right: 35px; }
+
+.nose {
+  position: absolute;
+  top: 65px;
+  left: 50%;
+  width: 14px;
+  height: 10px;
+  background: #3a1f0f;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+/* BODY */
+.body {
+  position: absolute;
+  top: 100px;
+  left: 40px;
+  width: 100px;
+  height: 110px;
+  background: #d8a46f;
+  border-radius: 50%;
+}
+
+/* ARMS */
+.arm {
+  position: absolute;
+  top: 120px;
+  width: 50px;
+  height: 20px;
+  background: #c4915c;
+  border-radius: 20px;
+  transition: transform 0.6s ease;
+}
+
+.arm.left { left: -10px; }
+.arm.right { right: -10px; }
+
+.teddy.hug .arm.left {
+  transform: translateX(25px) rotate(20deg);
+}
+
+.teddy.hug .arm.right {
+  transform: translateX(-25px) rotate(-20deg);
+}
+
+/* HEART */
+.heart {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  font-size: 20px;
+  color: #c2185b;
+  transform: translateX(-50%) scale(0);
+}
+
+.teddy.hug .heart {
+  animation: pulse 1.2s ease forwards;
+}
+
+@keyframes pulse {
+  0% { transform: translateX(-50%) scale(0); opacity: 0; }
+  50% { transform: translateX(-50%) scale(1.4); opacity: 1; }
+  100% { transform: translateX(-50%) scale(1); opacity: 0; }
+}
+
+/* NOTE */
+.note {
+  max-width: 520px;
+  margin: 30px auto 0;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  opacity: 0;
+  border-left: 2px solid #c2185b;
+  padding-left: 18px;
+}
+
+.note.show {
+  opacity: 1;
+}
+
+/* CURSOR */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: #c2185b;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Teddy Day 🧸</h1>
+<div class="subtitle">Click to hug</div>
+
+<div class="teddy" id="teddy">
+  <div class="head">
+    <div class="ear left"></div>
+    <div class="ear right"></div>
+    <div class="eye left"></div>
+    <div class="eye right"></div>
+    <div class="nose"></div>
+  </div>
+
+  <div class="body"></div>
+
+  <div class="arm left"></div>
+  <div class="arm right"></div>
+
+  <div class="heart">❤</div>
+</div>
+
+<div class="note" id="note"></div>
+
+<script>
+const teddy = document.getElementById("teddy");
+const note = document.getElementById("note");
+
+const message =
+`Do you remember how I told you
+that I’ve always been restless with others?
+No matter how much I liked them,
+sleep never really came easy.
+
+But with you…
+I slept like a baby.
+
+Careless.
+Calm.
+Like my mind finally knew it was safe.
+
+I didn’t have to stay alert,
+didn’t have to think,
+didn’t have to protect myself from anything.
+
+Your heartbeat became my sleeping pill,
+steady and quiet,
+telling me without words that I was okay,
+that I was held,
+that nothing bad would happen here.
+
+I think that’s how I knew
+not through big moments or loud promises,
+but through the way my body relaxed around you
+before my heart even caught up.
+
+So this Teddy Day,
+I don’t think of a soft toy.
+
+I think of you.
+And the kind of safety that lets someone finally rest. 🧸🤍`;
+
+let hugged = false;
+
+teddy.addEventListener("click", () => {
+  if (hugged) return;
+  hugged = true;
+
+  teddy.classList.add("hug");
+
+  setTimeout(() => {
+    typeWriter(note, message);
+  }, 600);
+});
+
+/* TYPEWRITER */
+function typeWriter(el, text) {
+  el.classList.add("show");
+  let i = 0;
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  el.appendChild(cursor);
+
+  const interval = setInterval(() => {
+    cursor.insertAdjacentText("beforebegin", text.charAt(i));
+    i++;
+    if (i >= text.length) {
+      clearInterval(interval);
+      cursor.remove();
+    }
+  }, 40);
+}
+</script>
+
+</body>
+</html>

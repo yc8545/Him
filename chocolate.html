@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chocolate Day 🍫</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff5f7, #ffe3ec);
+  font-family: 'Playfair Display', serif;
+  color: #4b2a2a;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.6rem;
+  color: #8b4513;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  opacity: 0.8;
+}
+
+/* CHOCOLATE SCENE */
+.scene {
+  position: relative;
+  width: 260px;
+  height: 180px;
+  margin: 0 auto 30px;
+  cursor: pointer;
+}
+
+/* WRAPPER */
+.wrapper {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #d2691e, #8b4513);
+  border-radius: 12px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.2rem;
+  transition: transform 1.2s ease;
+}
+
+/* UNWRAP */
+.scene.open .wrapper {
+  transform: translateY(-120%);
+}
+
+/* CHOCOLATE BAR */
+.chocolate {
+  position: absolute;
+  inset: 0;
+  background: #5a2d0c;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding: 10px;
+  opacity: 0;
+}
+
+.scene.open .chocolate {
+  opacity: 1;
+}
+
+/* PIECES */
+.piece {
+  background: linear-gradient(#6b3a14, #3e1f0a);
+  border-radius: 6px;
+  animation: pop 0.6s ease forwards;
+}
+
+.scene.open .piece:nth-child(1) { animation-delay: 0.1s; }
+.scene.open .piece:nth-child(2) { animation-delay: 0.2s; }
+.scene.open .piece:nth-child(3) { animation-delay: 0.3s; }
+.scene.open .piece:nth-child(4) { animation-delay: 0.4s; }
+.scene.open .piece:nth-child(5) { animation-delay: 0.5s; }
+.scene.open .piece:nth-child(6) { animation-delay: 0.6s; }
+.scene.open .piece:nth-child(7) { animation-delay: 0.7s; }
+.scene.open .piece:nth-child(8) { animation-delay: 0.8s; }
+
+@keyframes pop {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* NOTE */
+.note {
+  max-width: 520px;
+  margin: 30px auto 0;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  opacity: 0;
+  border-left: 2px solid #8b4513;
+  padding-left: 18px;
+}
+
+.note.show {
+  opacity: 1;
+}
+
+/* CURSOR */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: #8b4513;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Chocolate Day 🍫</h1>
+<div class="subtitle">Tap to unwrap</div>
+
+<div class="scene" id="scene">
+  <div class="wrapper">🍫</div>
+
+  <div class="chocolate">
+    <div class="piece"></div>
+    <div class="piece"></div>
+    <div class="piece"></div>
+    <div class="piece"></div>
+    <div class="piece"></div>
+    <div class="piece"></div>
+    <div class="piece"></div>
+    <div class="piece"></div>
+  </div>
+</div>
+
+<div class="note" id="note"></div>
+
+<script>
+const scene = document.getElementById("scene");
+const note = document.getElementById("note");
+
+const message =
+`Maybe one of the only truly common things we like is chocolate.
+And somehow, that makes it special.
+
+I still remember the way you asked me,
+“1 or 4?”
+And I knew exactly what you were asking
+not a number, but how many chocolates you should bring,
+because you only had 5 in total.
+
+I said 1, thinking you were keeping the rest for yourself,
+and that the one would be for me.
+But you smiled and said,
+“Okay, I’ll keep one for me and the rest for you.”
+
+And in that moment, I knew
+if I had said 4, you would’ve somehow manipulated the situation
+and said okay i'll bring 4 for u and keep one for me
+
+It was such a small thing,
+but it told me so much about you.
+About how you think.
+About how you care.
+About how even chocolates aren’t just chocolates with you.
+
+And okay… small disclaimer 😭
+I may be a little broke right now,
+but congratulations
+today you’ve officially earned a coupon of 7 chocolates 🍫🍫🍫🍫🍫🍫🍫
+which you may redeem any day starting next month,
+no expiry, no questions asked.
+
+Deal? 😌💕`;
+
+let opened = false;
+
+scene.addEventListener("click", () => {
+  if (opened) return;
+  opened = true;
+
+  scene.classList.add("open");
+
+  setTimeout(() => {
+    typeWriter(note, message);
+  }, 900);
+});
+
+/* TYPEWRITER */
+function typeWriter(el, text) {
+  el.classList.add("show");
+  let i = 0;
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  el.appendChild(cursor);
+
+  const interval = setInterval(() => {
+    cursor.insertAdjacentText("beforebegin", text.charAt(i));
+    i++;
+    if (i >= text.length) {
+      clearInterval(interval);
+      cursor.remove();
+    }
+  }, 40);
+}
+</script>
+
+</body>
+</html>

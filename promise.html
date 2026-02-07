@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Promise Day 🤝</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff5f7, #ffe3ec);
+  font-family: 'Playfair Display', serif;
+  color: #5a1f33;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.6rem;
+  color: #c2185b;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-bottom: 40px;
+}
+
+/* SCENE */
+.scene {
+  position: relative;
+  width: 320px;
+  height: 120px;
+  margin: 0 auto 40px;
+  cursor: pointer;
+}
+
+/* THREADS */
+.thread {
+  position: absolute;
+  top: 50%;
+  width: 140px;
+  height: 6px;
+  background: linear-gradient(90deg, #c2185b, #e57399);
+  border-radius: 10px;
+  transform: translateY(-50%);
+  transition: transform 1s ease;
+}
+
+.thread.left {
+  left: 0;
+}
+
+.thread.right {
+  right: 0;
+}
+
+/* KNOT */
+.knot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  background: #c2185b;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+/* PROMISE MADE */
+.scene.promise .thread.left {
+  transform: translate(80px, -50%);
+}
+
+.scene.promise .thread.right {
+  transform: translate(-80px, -50%);
+}
+
+.scene.promise .knot {
+  animation: knotTie 1.4s ease forwards;
+}
+
+@keyframes knotTie {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 18px rgba(194, 24, 91, 0.6);
+  }
+}
+
+/* NOTE */
+.note {
+  max-width: 560px;
+  margin: 30px auto 0;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  opacity: 0;
+  border-left: 2px solid #c2185b;
+  padding-left: 18px;
+}
+
+.note.show {
+  opacity: 1;
+}
+
+/* CURSOR */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: #c2185b;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Promise Day 🤝</h1>
+<div class="subtitle">Click to tie the promise</div>
+
+<div class="scene" id="scene">
+  <div class="thread left"></div>
+  <div class="thread right"></div>
+  <div class="knot"></div>
+</div>
+
+<div class="note" id="note"></div>
+
+<script>
+const scene = document.getElementById("scene");
+const note = document.getElementById("note");
+
+const message =
+`I don’t believe in plucking stars or moons,
+or making promises that sound magical but feel distant.
+
+I believe in small efforts.
+
+In always giving you the last bite of my food,
+even when it’s my favourite.
+In skipping plans, comfort, and excuses
+just to be with you.
+In showing up early in the morning
+simply to support you.
+In feeding you because I want to, not because I have to.
+
+I believe in holding you a little tighter
+when I know I’ll have to leave in two minutes,
+in looking back one last time,
+just to see you again before I go.
+
+These are the promises I know how to keep.
+
+And I promise I’ll keep doing all of this
+choosing you in these quiet, everyday ways
+until the day you tell me I shouldn’t anymore.
+
+I said I don’t believe in plucking stars and moons…
+but just between you and me,
+if I ever found a way to get them for you,
+I would. 🤍
+
+ 🤝🤍`;
+
+let promised = false;
+
+scene.addEventListener("click", () => {
+  if (promised) return;
+  promised = true;
+
+  scene.classList.add("promise");
+
+  setTimeout(() => {
+    typeWriter(note, message);
+  }, 700);
+});
+
+/* TYPEWRITER */
+function typeWriter(el, text) {
+  el.classList.add("show");
+  let i = 0;
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  el.appendChild(cursor);
+
+  const interval = setInterval(() => {
+    cursor.insertAdjacentText("beforebegin", text.charAt(i));
+    i++;
+    if (i >= text.length) {
+      clearInterval(interval);
+      cursor.remove();
+    }
+  }, 40);
+}
+</script>
+
+</body>
+</html>
