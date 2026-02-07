@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet">
 
 <style>
-/* PAGE */
 body {
   margin: 0;
   min-height: 100vh;
@@ -15,7 +14,8 @@ body {
   font-family: 'Playfair Display', serif;
   color: #5a1f33;
   text-align: center;
-  overflow-x: hidden;
+    overflow-x: hidden;
+  overflow-y: auto;
   padding: 40px 20px;
 }
 
@@ -66,7 +66,7 @@ h1 {
   }
 }
 
-/* ROSE (YOUR CODE, SLIGHTLY POSITIONED) */
+/* ROSE */
 .rose {
   position: relative;
   width: 200px;
@@ -179,7 +179,7 @@ button {
 }
 .note.show { opacity: 1; }
 
-/* WIND SWAY (SUBTLE) */
+/* WIND */
 .rose.sway {
   animation: wind 6s ease-in-out infinite;
   transform-origin: bottom center;
@@ -208,6 +208,11 @@ button {
 
 <body>
 
+    <audio id="bgMusic" autoplay loop muted>
+  <source src="rose.mpeg" type="audio/mpeg">
+</audio>
+
+
 <h1>Happy Rose Day 🌹</h1>
 
 <div class="scene">
@@ -228,9 +233,24 @@ button {
 
 <button id="waterBtn">Water the plant 💧</button>
 
+<button onclick="bgMusic.paused ? bgMusic.play() : bgMusic.pause()">
+  🎵 Toggle Music
+</button>
+
+
 <div class="note" id="note"></div>
 
 <script>
+
+const bgMusic = document.getElementById("bgMusic");
+
+window.addEventListener("load", () => {
+  bgMusic.volume = 0.35; 
+  bgMusic.muted = false;
+  bgMusic.play().catch(() => {
+  });
+});
+
 const btn = document.getElementById("waterBtn");
 const rose = document.getElementById("rose");
 const note = document.getElementById("note");

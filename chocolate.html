@@ -24,13 +24,24 @@ h1 {
   margin-bottom: 10px;
 }
 
+button {
+  margin-top: 30px;
+  background: #c2185b;
+  color: #fff;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
 .subtitle {
   font-size: 1rem;
   margin-bottom: 30px;
   opacity: 0.8;
 }
 
-/* CHOCOLATE SCENE */
 .scene {
   position: relative;
   width: 260px;
@@ -39,7 +50,6 @@ h1 {
   cursor: pointer;
 }
 
-/* WRAPPER */
 .wrapper {
   position: absolute;
   inset: 0;
@@ -136,6 +146,10 @@ h1 {
 
 <body>
 
+<audio id="bgMusic" autoplay loop muted>
+  <source src="chocolate.mpeg" type="audio/mpeg">
+</audio>
+
 <h1>Happy Chocolate Day 🍫</h1>
 <div class="subtitle">Tap to unwrap</div>
 
@@ -154,9 +168,24 @@ h1 {
   </div>
 </div>
 
+<button onclick="bgMusic.paused ? bgMusic.play() : bgMusic.pause()">
+  🎵 Toggle Music
+</button>
+
+
 <div class="note" id="note"></div>
 
 <script>
+
+const bgMusic = document.getElementById("bgMusic");
+
+window.addEventListener("load", () => {
+  bgMusic.volume = 0.35; 
+  bgMusic.muted = false;
+  bgMusic.play().catch(() => {
+  });
+});
+
 const scene = document.getElementById("scene");
 const note = document.getElementById("note");
 

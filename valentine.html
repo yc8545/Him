@@ -127,7 +127,6 @@ body {
   color: #444;
 }
 
-/* CONTROLS */
 .controls {
   margin-top: 25px;
   display: none;
@@ -147,7 +146,6 @@ body {
   cursor: pointer;
 }
 
-/* FINAL NOTE */
 .final-note {
   max-width: 640px;
   margin: 50px auto 0;
@@ -257,11 +255,10 @@ function updatePages() {
   pages.forEach((page, index) => {
     if (index < currentPage) {
       page.classList.add("flipped");
-      page.style.zIndex = index; // flipped pages go down
+      page.style.zIndex = index; 
     } else {
       page.classList.remove("flipped");
-      page.style.zIndex = total - index; // unflipped pages stack on top
-    }
+      page.style.zIndex = total - index; 
   });
 }
 

@@ -16,7 +16,8 @@ body {
   color: #5a1f33;
   text-align: center;
   padding: 40px 20px;
-  overflow: hidden;
+    overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* TITLE */
@@ -143,6 +144,18 @@ h1 {
   100% { transform: translate(-50%, -50%) scale(0.9); }
 }
 
+
+button {
+  margin-top: 30px;
+  background: #c2185b;
+  color: #fff;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
 /* NOTE */
 .note {
   max-width: 560px;
@@ -204,6 +217,10 @@ h1 {
 
 <body>
 
+  <audio id="bgMusic" autoplay loop muted>
+  <source src="hug.mpeg" type="audio/mpeg">
+</audio>
+
 <h1>Happy Hug Day 🤗</h1>
 <div class="subtitle">Click to hug</div>
 
@@ -221,9 +238,21 @@ h1 {
   <div class="heart">❤</div>
 </div>
 
+<button onclick="bgMusic.paused ? bgMusic.play() : bgMusic.pause()">
+  🎵 Toggle Music
+</button>
 <div class="note" id="note"></div>
 
 <script>
+
+        const bgMusic = document.getElementById("bgMusic");
+
+window.addEventListener("load", () => {
+  bgMusic.volume = 0.35; 
+  bgMusic.muted = false;
+  bgMusic.play().catch(() => {
+  });
+});
 const scene = document.getElementById("scene");
 const note = document.getElementById("note");
 

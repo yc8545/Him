@@ -12,7 +12,6 @@ body {
   text-align: center;
 }
 
-/* HERO */
 .hero {
   padding: 55px 20px 35px;
 }
@@ -24,7 +23,7 @@ body {
   margin-bottom: 40px;
 }
 
-/* PHOTOS */
+
 .photos {
   display: flex;
   justify-content: center;
@@ -45,19 +44,19 @@ body {
   transform: scale(1.08);
   box-shadow: 0 18px 45px rgba(194, 24, 91, 0.35);
 }
-/* PHOTO BLUR LOCK */
+
 .photos.locked img {
   filter: blur(8px) grayscale(40%);
   transition: filter 1.2s ease;
 }
 
-/* WHEN UNLOCKED */
+
 .photos.unlocked img {
   filter: blur(0) grayscale(0);
 }
 
 
-/* DAYS LIST */
+
 .days-list {
   list-style: none;
   width: 90%;
@@ -81,7 +80,7 @@ body {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
 }
 
-/* TIMER */
+
 .timer {
   display: block;
   margin-top: 10px;
@@ -90,7 +89,7 @@ body {
   color: #a14b6f;
 }
 
-/* FLOATING HEARTS */
+
 .heart {
   position: fixed;
   bottom: -20px;

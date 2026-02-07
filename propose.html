@@ -16,6 +16,8 @@ body {
   color: #5a1f33;
   text-align: center;
   padding: 40px 20px;
+    overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* TITLE */
@@ -164,6 +166,18 @@ h1 {
   opacity: 1;
 }
 
+button {
+  margin-top: 30px;
+  background: #c2185b;
+  color: #fff;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
 
 /* TYPEWRITER CURSOR */
 .cursor {
@@ -226,6 +240,11 @@ h1 {
 
 <body>
 
+    <audio id="bgMusic" autoplay loop muted>
+  <source src="propose.mpeg" type="audio/mpeg">
+</audio>
+
+
 <h1>Happy Propose Day 💍</h1>
 
 <!-- PROPOSAL SCENE -->
@@ -236,6 +255,11 @@ h1 {
   <div class="person girl"></div>
 </div>
 
+<button onclick="bgMusic.paused ? bgMusic.play() : bgMusic.pause()">
+  🎵 Toggle Music
+</button>
+
+
 <!-- LETTER -->
 <div class="letter" id="letter">
   <div class="envelope">
@@ -245,6 +269,16 @@ h1 {
 </div>
 
 <script>
+
+    const bgMusic = document.getElementById("bgMusic");
+
+window.addEventListener("load", () => {
+  bgMusic.volume = 0.35; 
+  bgMusic.muted = false;
+  bgMusic.play().catch(() => {
+  });
+});
+
 const letter = document.getElementById("letter");
 const note = document.getElementById("note");
 
