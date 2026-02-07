@@ -225,16 +225,7 @@ const candle = document.querySelector(".candle-glow");
 let currentPage = 0;
 let opened = false;
 
-const finalMessage = `This book isn’t a gift.
-It’s a reminder.
-
-That everything here was written with intention.
-
-I choose you.
-Still.
-Every day.
-
-Happy Valentine’s Day. ❤️`;
+const finalMessage = ``;
 
 function glowPulse() {
   candle.classList.add("bright");
@@ -258,7 +249,8 @@ function updatePages() {
       page.style.zIndex = index; 
     } else {
       page.classList.remove("flipped");
-      page.style.zIndex = total - index; 
+      page.style.zIndex = total - index;
+    }
   });
 }
 
